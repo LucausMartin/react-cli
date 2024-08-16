@@ -4,16 +4,20 @@ const { getVersion, createProject } = require('./utils');
 const inquirer = require('inquirer');
 const ora = require('ora');
 
+// 设置命令行工具的名称和用法
 program.name('lucaus-react-cli').usage('<command> [options]');
 
-program.option('-v, --version', 'output the version number', getVersion)
+// 设置版本号
+program.option('-v, --version', 'output the version number', getVersion);
 
-const spinner = ora('creating project...')
+// 设置 Loading 内容
+const spinner = ora('creating project...' + '\n');
 
+// 设置 create 命令的执行
 program
       .command('create')
       .description('create a new React project')
-      .action((appName) => {
+      .action(() => {
         inquirer
           .prompt([
             {
@@ -59,21 +63,41 @@ program
               default: true
             },
           ])
-          .then((answers) => {
-            const createRes = createProject(answers);
+          .then(async (answers) => {
+            // 开始 loading
+            console.log('\n');
+            spinner.start();
+
+            // 获取创建结果
+            const createRes = await createProject(answers);
+
             if (!createRes) {
-              console.log(chalk.redBright('Create failed'));
+              // 失败提示
+              console.log('\n');
+              console.log('\n');
+              spinner.fail(' ' + 'Create failed');  
+              return;
+            } else {
+              // 成功提示
+              console.log('\n');
+              console.log('\n');
+              spinner.succeed(' ' + 'React project created successfully!');
+              // 提示用户下一步操作
+              console.log('\n');
+              console.log(chalk.greenBright(`cd ${answers.AppName}`));
+              console.log(chalk.greenBright('pnpm install'));
+              console.log(chalk.greenBright('pnpm dev'));
+              console.log('\n');
             }
-            // spinner.start();
-            // setTimeout(() => {
-            //   spinner.succeed('React project created successfully!');
-            //   spinner.fail('Create failed');
-            // }, 2000);
           })
           .catch((error) => {
-            console.log(error);
-            console.log(chalk.redBright('Creating a new React fail'));
+            // 错误提示
+            console.log('\n');
+            console.log('\n');
+            console.log(chalk.redBright('Creating a new React fail\n'));
+            console.log( chalk.redBright('The reason is: '), error);
           });
       });
- 
+
+// 解析命令行参数
 program.parse(process.argv);

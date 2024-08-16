@@ -1,18 +1,26 @@
 {
   "name": "lucaus-react-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LucausMartin/react-cli.git"
+  },
+  "author": "lucaus",
   "license": "ISC",
   "dependencies": {
     "chalk": "4",
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0",
+    "git-clone": "^0.2.0",
     "inquirer": "8",
     "ora": "5"
   }

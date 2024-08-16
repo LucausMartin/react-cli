@@ -1,7 +1,7 @@
 // 仓库对照表
 const RESPOSITORY_MAP = {
-  'routertsreduxlesscommitlint': '',
-  'routertsreduxlesscommitlintlogin': '',
+  'routertsreduxlesscommitlint': 'https://github.com/LucausMartin/react-temlate-basic.git',
+  // 'routertsreduxlesscommitlintlogin': '',
 }
 
 // 字符串拼接顺序数组
@@ -24,6 +24,9 @@ const STR_CONCAT_ORDER_MAP = {
   'Login-Module': 'login',
 }
 
+const PWD = process.cwd();
+
 exports.RESPOSITORY_MAP = RESPOSITORY_MAP;
 exports.STR_CONCAT_ORDER = STR_CONCAT_ORDER;
 exports.STR_CONCAT_ORDER_MAP = STR_CONCAT_ORDER_MAP;
+exports.PWD = PWD;
