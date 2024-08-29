@@ -20,7 +20,6 @@ program
       .option('-w, --web', 'create a web project')
       .option('-s, --server', 'create a server project')
       .action((cmd) => {
-        console.log(cmd);
         // 只能选择一个参数
         if (cmd.web && cmd.server) {
           console.error(chalk.redBright('Error: You can only use one of the options -w or -s, not both.'));
