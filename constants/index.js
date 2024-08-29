@@ -1,7 +1,8 @@
 // 仓库对照表
 const RESPOSITORY_MAP = {
-  'routertsreduxlesscommitlint': 'https://github.com/LucausMartin/react-temlate-basic.git',
-  // 'routertsreduxlesscommitlintlogin': '',
+  'webroutertsreduxlesscommitlint': 'https://github.com/LucausMartin/react-temlate-basic.git',
+  'webroutertsreduxlesscommitlintlogin': 'https://github.com/LucausMartin/react-temlate-with-login.git',
+  'servercommitlintlogin': 'https://github.com/LucausMartin/react-temlate-with-login-server.git',
 }
 
 // 字符串拼接顺序数组

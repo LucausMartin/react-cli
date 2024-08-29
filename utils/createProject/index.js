@@ -9,18 +9,21 @@ const gitClone = require('git-clone');
  * @param {AppName, React-Router, TypeScript, Redux, Less, Commitlint, Login-Module} options 
  * @returns 
  */
-const beforeCreateProject = (options) => {
+const beforeCreateProject = (options, type) => {
   // 判断本地目录是否存在即将创建的项目名称
   if (fs.existsSync(path.join(PWD, options.AppName))) {
     console.log(chalk.redBright('\n'+ 'The project already exists!'));
     return false;
   }
 
-  // 因为项目登录模块依赖于redux，所以如果选择了登录模块，但是没有选择redux，则需要提示用户
-  if (options['Login-Module'] && !options['Redux']) {
-    console.log(chalk.redBright('The login module depends on redux, please select redux!'));
-    return false;
+  if (type === 'web') {
+    // 因为项目登录模块依赖于redux，所以如果选择了登录模块，但是没有选择redux，则需要提示用户
+    if (options['Login-Module'] && !options['Redux']) {
+      console.log(chalk.redBright('The login module depends on redux, please select redux!'));
+      return false;
+    }
   }
+
 
   // 根据字符串拼接数组循环拼接字符串
   let repository = '';
@@ -29,6 +32,13 @@ const beforeCreateProject = (options) => {
       repository += STR_CONCAT_ORDER_MAP[item]
     }
   });
+
+  if (type === 'web') {
+    repository = 'web' + repository;
+  }
+  if (type === 'server') {
+    repository = 'server' + repository;
+  }
 
   // 判断是否存在该项目模板
   if (!RESPOSITORY_MAP.hasOwnProperty(repository)) {
@@ -44,9 +54,9 @@ const beforeCreateProject = (options) => {
  * @param {AppName, React-Router, TypeScript, Redux, Less, Commitlint, Login-Module} options
  * @returns {boolean}
  */
-const createProject = async (options) => {
+const createProject = async (options, type) => {
   // 校验并获取仓库地址
-  const respository = beforeCreateProject(options);
+  const respository = beforeCreateProject(options, type);
 
   // 如果校验失败，则返回false
   if (!respository) {
